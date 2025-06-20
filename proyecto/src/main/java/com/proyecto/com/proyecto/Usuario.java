@@ -1,9 +1,10 @@
 package com.proyecto;
+import jav
 
 enum Rol{
     Cliente, Conductor
 }
-public class Usuario{
+public abstract class Usuario{
     protected String codigoUnico;
     protected String numCed;
     protected String nombres;
@@ -13,7 +14,7 @@ public class Usuario{
     protected String correo;
     protected Rol rol;
     
-    // Constructor por defecto
+    // Constructor 
     public Usuario(String codigoUnico, String numCed, String nombres, String apellidos, String usuario, String contraseña, String correo, Rol rol) {
         this.codigoUnico = codigoUnico;
         this.numCed = numCed;
@@ -26,12 +27,12 @@ public class Usuario{
     }
 
     //Métodos
-    public void gestionarPedido(){
+    public abstract void gestionarPedido();
 
-    }
-    public void consultarPedido(){
-
-    }
+    public void consultarPedido(String codigoPedido){
+        System.out.println("-------CONSULTA DE ESTADO DE PEDIDO-------");
+        System.out.println("Ingrese el código del pedido: "+codigoPedido);
+    } 
 
     //Getters y Setters
     public String getCodigoUnico() {
