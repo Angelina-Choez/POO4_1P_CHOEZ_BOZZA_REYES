@@ -1,4 +1,4 @@
-package com.proyecto;
+/*package com.proyecto;
 import java.util.Date;
 
 public class Pedido {
@@ -71,4 +71,4 @@ public class Pedido {
     public void setCodigoRepartidor(String codigoRepartidor){
         this.codigoRepartidor = codigoRepartidor;
     }
-}
+} */

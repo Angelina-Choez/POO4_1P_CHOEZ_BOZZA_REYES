@@ -1,5 +1,4 @@
 package com.proyecto;
-import jav
 
 enum Rol{
     Cliente, Conductor
@@ -32,6 +31,7 @@ public abstract class Usuario{
     public void consultarPedido(String codigoPedido){
         System.out.println("-------CONSULTA DE ESTADO DE PEDIDO-------");
         System.out.println("Ingrese el código del pedido: "+codigoPedido);
+        
     } 
 
     //Getters y Setters
