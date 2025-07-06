@@ -38,5 +38,18 @@ public class Cliente extends Usuario{
 
     Scanner sc= new Scanner(System.in);
     System.out.println("Ingrese la categoría del producto que desea comprar: ");
+    public String getCelular() {
+        return celular;
+    }
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
 
 }

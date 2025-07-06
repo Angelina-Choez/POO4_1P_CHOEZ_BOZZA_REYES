@@ -1,7 +1,7 @@
 package com.proyecto;
 
 enum Rol{
-    Cliente, Conductor
+    Cliente, Repartidor
 }
 public abstract class Usuario{
     protected String codigoUnico;
@@ -13,7 +13,7 @@ public abstract class Usuario{
     protected String correo;
     protected Rol rol;
     
-    // Constructor 
+    // Constructor para inicializar los atributos.
     public Usuario(String codigoUnico, String numCed, String nombres, String apellidos, String usuario, String contrasenia, String correo, Rol rol) {
         this.codigoUnico = codigoUnico;
         this.numCed = numCed;
@@ -25,7 +25,7 @@ public abstract class Usuario{
         this.rol = rol;
     }
 
-    //Métodos
+    //Métodos de la clase.
     public abstract void gestionarPedido();
 
      @Override
@@ -33,7 +33,7 @@ public abstract class Usuario{
         return "Código Único: "+codigoUnico+", Nombre: "+nombres+" "+apellidos+", Rol: "+rol;
      }
 
-    //Getters y Setters (Encapsulamiento)
+    //Métodos Getters y Setters.
     public String getCodigoUnico() {
         return codigoUnico;
     }   

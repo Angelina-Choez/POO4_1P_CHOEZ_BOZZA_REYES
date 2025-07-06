@@ -1,18 +1,23 @@
-/*package com.proyecto;
-import java.util.Date;
+package com.proyecto;
+import java.time.LocalDate;
+
+enum EstadoPedido {
+    PENDIENTE, EN_CAMINO, ENTREGADO, CANCELADO
+    }
 
 public class Pedido {
     private static int contadorPedidos = 1000;
-
+    
     private String codigoPedido;
-    private Date fecha;
+    private LocalDate fecha;
     private String codigoProducto;
     private int cantidad;
     private double valorPagado;
-    private String estado;
+    private EstadoPedido estado;
     private String codigoRepartidor;
 
-    public Pedido(Date fecha, String codigoProducto, int cantidad, double valorPagado, String estado, String codigoRepartidor) {
+    //Constructor para inicializar los atributos.
+    public Pedido(LocalDate fecha, String codigoProducto, int cantidad, double valorPagado, EstadoPedido estado, String codigoRepartidor) {
         this.codigoPedido = generarCodigoPedido();
         this.fecha = fecha;
         this.codigoProducto = codigoProducto;
@@ -22,18 +27,27 @@ public class Pedido {
         this.codigoRepartidor = codigoRepartidor;
     }
 
+    //Método para generar un código de pedido único.
     private String generarCodigoPedido() {
         return "PED" + (++contadorPedidos);
     }
 
+    //Método toString
+    @Override
+    public String toString(){
+        return "Código de Pedido: "+codigoPedido+", Fecha: "+fecha +", Código de Producto: "+codigoProducto +", Cantidad: "+cantidad +", Valor Pagado: " + valorPagado + 
+               ", Estado: "+estado+", Código de Repartidor: " + codigoRepartidor;
+    }
+
+    //Métodos Getters y Setters.
     public String getCodigoPedido() {
         return codigoPedido;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -58,10 +72,10 @@ public class Pedido {
         this.valorPagado = valorPagado;
     }
 
-    public String getEstado() {
+    public EstadoPedido getEstado() {
         return estado;
     }
-    public void setEstado(String estado) {
+    public void setEstado(EstadoPedido estado) {
         this.estado = estado;
     }
 
@@ -71,4 +85,4 @@ public class Pedido {
     public void setCodigoRepartidor(String codigoRepartidor){
         this.codigoRepartidor = codigoRepartidor;
     }
-} */
+} 
