@@ -9,18 +9,18 @@ public abstract class Usuario{
     protected String nombres;
     protected String apellidos;
     protected String usuario;
-    protected String contraseña;
+    protected String contrasenia;
     protected String correo;
     protected Rol rol;
     
     // Constructor 
-    public Usuario(String codigoUnico, String numCed, String nombres, String apellidos, String usuario, String contraseña, String correo, Rol rol) {
+    public Usuario(String codigoUnico, String numCed, String nombres, String apellidos, String usuario, String contrasenia, String correo, Rol rol) {
         this.codigoUnico = codigoUnico;
         this.numCed = numCed;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.usuario = usuario;
-        this.contraseña = contraseña;
+        this.contrasenia = contrasenia;
         this.correo = correo;
         this.rol = rol;
     }
@@ -28,13 +28,12 @@ public abstract class Usuario{
     //Métodos
     public abstract void gestionarPedido();
 
-    public void consultarPedido(String codigoPedido){
-        System.out.println("-------CONSULTA DE ESTADO DE PEDIDO-------");
-        System.out.println("Ingrese el código del pedido: "+codigoPedido);
-        
-    } 
+     @Override
+     public String toString(){
+        return "Código Único: "+codigoUnico+", Nombre: "+nombres+" "+apellidos+", Rol: "+rol;
+     }
 
-    //Getters y Setters
+    //Getters y Setters (Encapsulamiento)
     public String getCodigoUnico() {
         return codigoUnico;
     }   
@@ -66,10 +65,10 @@ public abstract class Usuario{
         this.usuario = usuario;
     }
     public String getContraseña() {
-        return contraseña;
+        return contrasenia;
     }
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContraseña(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
     public String getCorreo() {
         return correo;
