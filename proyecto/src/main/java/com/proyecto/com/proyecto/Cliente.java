@@ -28,7 +28,7 @@ public class Cliente extends Usuario{
         this.direccion = direccion; 
     }
 
-    public Pedido comprarProducto(List<Producto> productos, List<Conductor> conductores){
+    public Pedido comprarProducto(List<Producto> productos, List<Repartidor> repartidores){
        System.out.println("--------------OPCIÓN DE COMPRA--------------");
        System.out.println("Categorías disponibles: ");
        for (Producto producto: productos){

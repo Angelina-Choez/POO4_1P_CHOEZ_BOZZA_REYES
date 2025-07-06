@@ -1,8 +1,5 @@
 package com.proyecto;
 
-enum Rol{
-    Cliente, Repartidor
-}
 public abstract class Usuario{
     protected String codigoUnico;
     protected String numCed;

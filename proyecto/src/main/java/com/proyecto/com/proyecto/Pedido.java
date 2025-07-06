@@ -2,7 +2,7 @@ package com.proyecto;
 import java.time.LocalDate;
 
 enum EstadoPedido {
-    PENDIENTE, EN_CAMINO, ENTREGADO, CANCELADO
+    PENDIENTE, EN_RUTA, ENTREGADO, CANCELADO
     }
 
 public class Pedido {
