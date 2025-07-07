@@ -1,6 +1,7 @@
 package com.proyecto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Sistema {
     private static final List<Usuario> usuarios = new ArrayList<>();
@@ -21,10 +22,10 @@ public class Sistema {
                 return usuario;
             }
         }
-        return null; //Usuario no encontrado
+        return null;
     }
 
-    public static void List<Repartidor> obtenerRepartidores(){
+    public static List<Repartidor> obtenerRepartidores(){
         List<Repartidor> repartidores = new ArrayList<>();
         for (Usuario usuario : usuarios) {
             if (usuario instanceof Repartidor) {
@@ -40,7 +41,7 @@ public class Sistema {
                 return producto;
             }
         }
-        return null; //Producto no encontrado
+        return null;
     }
 
     public static void agregarProducto(Producto producto){
@@ -51,7 +52,7 @@ public class Sistema {
         }
     }
 
-    public static void List<Producto> obtenerProductos(){
+    public static List<Producto> obtenerProductos(){
         return productos;
     }
 
@@ -69,7 +70,7 @@ public class Sistema {
                 return pedido;
             }
         }
-        return null; //Pedido no encontrado
+        return null;
     }
 
     public static List<Pedido> obtenerPedidosPorCliente(String codigoCliente) {
@@ -89,4 +90,30 @@ public class Sistema {
     public static List<Pedido> obtenerPedidos(){
         return pedidos;
     }
+    public class Main {
+    public static void main(String[] args) {
+        try (Scanner sc = new Scanner(System.in)) {
+            Sistema.agregarUsuario(new Cliente("CL001", "0991234567", "Ana", "Torres", "atorres", "1234", "ana@mail.com", null, "0991234567", "Calle 1"));
+            Sistema.agregarUsuario(new Repartidor("RP001", "0101010101", "Luis", "Medina", "lmedina", "abcd", "luis@mail.com", null, "Envios Express"));
+
+            System.out.print("Usuario: ");
+            String user = sc.nextLine();
+            System.out.print("Contraseña: ");
+            String pass = sc.nextLine();
+
+            for (Usuario u : Sistema.obtenerUsuarios()) {
+                if (u.getUsuario().equals(user) && u.getContrasenia().equals(pass)) {
+                    System.out.println("Bienvenido, " + u.getNombres());
+                    if (u instanceof Cliente c) {
+                        ClienteServicio.menuCliente(c);
+                    } else if (u instanceof Repartidor r) {
+                        r.gestionarPedido();
+                    }
+                    return;
+                }
+            }
+        }
+        System.out.println("Credenciales incorrectas.");
+    }
+}
 }

@@ -12,9 +12,9 @@ public class Pedido {
     private EstadoPedido estado;
     private String codigoRepartidor;
     private String codigoCliente;
-    private String idPago;
+    private Pago pago;
 
-    public Pedido(LocalDate fecha, String codigoProducto, int cantidad, double valorPagado, EstadoPedido estado, String codigoRepartidor, String codigoCliente, String idPago) {
+    public Pedido(LocalDate fecha, String codigoProducto, int cantidad, double valorPagado, EstadoPedido estado, String codigoRepartidor, String codigoCliente, Pago pago) {
         this.codigoPedido = generarCodigoPedido();
         this.fecha = fecha;
         this.codigoProducto = codigoProducto;
@@ -23,7 +23,7 @@ public class Pedido {
         this.estado = estado;
         this.codigoRepartidor = codigoRepartidor;
         this.codigoCliente = codigoCliente;
-        this.idPago = idPago;
+        this.pago = pago;
     }
 
     private String generarCodigoPedido() {
@@ -32,12 +32,15 @@ public class Pedido {
 
     @Override
     public String toString(){
-        String pago= "N/A";
-        if(idPago!=null && !idPago.isEmpty()){
-            pago = "ID de Pago: " + idPago;
+        String detallePago;
+        if (pago != null) {
+            detallePago = pago.getFormaPago() + " - Ref: " + pago.getReferencia();
+        } else {
+            detallePago = "No registrado";
         }
+
         return "Código de Pedido: "+codigoPedido+", Fecha: "+fecha +", Código de Producto: "+codigoProducto +", Cantidad: "+cantidad +", Valor Pagado: " + valorPagado +", Estado: "+estado+", Código de Repartidor: " + codigoRepartidor
-            +", Código de Cliente: " + codigoCliente + ", " + pago;
+            +", Código de Cliente: " + codigoCliente + ", Pago" + detallePago;
     }
 
     public String getCodigoPedido() {
@@ -92,11 +95,4 @@ public class Pedido {
     public void setCodigoCliente(String codigoCliente) {
         this.codigoCliente = codigoCliente;
     }
-
-    public String getIdPago() {
-        return idPago;
-    }
-    public void setIdPago(String idPago) {
-        this.idPago = idPago;
-    }
-} 
+}

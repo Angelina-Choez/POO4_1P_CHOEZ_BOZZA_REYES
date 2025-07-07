@@ -1,6 +1,4 @@
 package com.proyecto;
-import java.util.Scanner;
-import java.util.List;
 import java.time.LocalDate;
 
 public class Cliente extends Usuario{
@@ -33,7 +31,7 @@ public class Cliente extends Usuario{
         if (!producto.estaDisponible(cantidad)){
             return null;
         }
-        if(!pago.estaVerificado()){
+        if(!pago.isVerificado()){
             return null;
         }
         double total= producto.getPrecio()*cantidad;
