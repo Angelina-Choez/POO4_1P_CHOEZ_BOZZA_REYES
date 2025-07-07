@@ -26,5 +26,10 @@ public class Repartidor extends Usuario{
         this.telefono = telefono;
     }
 
+    public String getEmpresa() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getEmpresa'");
+    }
+
 
 }

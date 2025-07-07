@@ -1,8 +1,8 @@
 package com.proyecto;
 
 public enum Categoria {
-    Ropa,
-    Tecnologia,
-    Deporte,
-    Hogar
+    ROPA,
+    TECNOLOGIA,
+    DEPORTE,
+    HOGAR
 }

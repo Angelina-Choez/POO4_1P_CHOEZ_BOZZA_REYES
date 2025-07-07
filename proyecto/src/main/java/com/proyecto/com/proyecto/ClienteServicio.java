@@ -16,7 +16,7 @@ public class ClienteServicio {
             }
 
             mostrarProductos(disponibles);
-            Producto seleccionado = seleccionarProducto(disponibles);
+            Producto seleccionado = ClienteServicio.seleccionarProducto(Sistema.obtenerProductos(), cliente);
             if (seleccionado == null) return null;
 
             int cantidad = solicitarCantidad(seleccionado);
@@ -47,7 +47,7 @@ public class ClienteServicio {
     }
 
     private static Categoria seleccionarCategoria() {
-        try (Scanner sc = new Scanner(System.in)) {
+        Scanner sc = new Scanner(System.in);
             System.out.println("\nCategorías:");
             for (Categoria c : Categoria.values()) System.out.println("- " + c.name());
             System.out.print("Seleccione categoría: ");
@@ -58,7 +58,7 @@ public class ClienteServicio {
                 return null;
             }
         }
-    }
+    
 
     private static List<Producto> filtrarProductos(List<Producto> productos, Categoria categoria) {
         List<Producto> lista = new ArrayList<>();
@@ -74,33 +74,33 @@ public class ClienteServicio {
         }
     }
 
-    private static Producto seleccionarProducto(List<Producto> disponibles) {
-        try (Scanner sc = new Scanner(System.in)) {
+    static Producto seleccionarProducto(List<Producto> disponibles, Cliente cliente) {
+        Scanner sc = new Scanner(System.in);
             System.out.print("Elija número de producto: ");
             try {
                 int opcion = Integer.parseInt(sc.nextLine());
-                if (opcion >= 1 && opcion <= disponibles.size()) return disponibles.get(opcion - 1);
+                if (opcion >= 1 && opcion <= ((List<Producto>) disponibles).size()) return ((List<Producto>) disponibles).get(opcion - 1);
             } catch (Exception ignored) {}
-        }
+        
         System.out.println("Opción inválida.");
         return null;
     }
 
     private static int solicitarCantidad(Producto p) {
-        try (Scanner sc = new Scanner(System.in)) {
+        Scanner sc = new Scanner(System.in);
             System.out.print("Cantidad a comprar: ");
             try {
                 int cantidad = Integer.parseInt(sc.nextLine());
                 if (cantidad > 0 && p.estaDisponible(cantidad)) return cantidad;
             } catch (Exception ignored) {}
-        }
+        
 
         System.out.println("Cantidad inválida o stock insuficiente.");
         return -1;
     }
 
     private static FormaPago seleccionarTipoPago() {
-        try (Scanner sc = new Scanner(System.in)) {
+        Scanner sc = new Scanner(System.in);
             System.out.println("Métodos de pago:");
             for (FormaPago t : FormaPago.values()) System.out.println("- " + t.name());
             System.out.print("Seleccione uno: ");
@@ -111,7 +111,6 @@ public class ClienteServicio {
                 return FormaPago.TARJETA;
             }
         }
-    }
 
     private static Repartidor elegirRepartidor(List<Repartidor> lista) {
         if (lista == null || lista.isEmpty()) {
@@ -136,21 +135,4 @@ public class ClienteServicio {
         }
     }
     
-    public static void menuCliente(Cliente cliente) {
-        try (Scanner sc = new Scanner(System.in)) {
-            int op;
-            do {
-                System.out.println("1. Comprar producto\n2. Ver pedidos\n3. Salir");
-                System.out.print("Opción: ");
-                op = sc.nextInt();
-                sc.nextLine();
-                if (op == 1) comprarProducto(cliente);
-                else if (op == 2) cliente.gestionarPedido();
-            } while (op != 3);
-        }
-    }
-
-    public static void comprarProducto(Cliente cliente) {
-    }
-
 }

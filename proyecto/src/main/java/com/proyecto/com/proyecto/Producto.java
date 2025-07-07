@@ -7,12 +7,26 @@ public class Producto {
     private int stock;
     private String categoria;
 
-    public Producto(String codigo, String nombre, double precio, int stock, String categoria) {
+    public String getCategoria() {
+        return categoria;
+    }
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+        /**
+     * Constructor para crear un producto con todos sus datos.
+     *
+     * @param codigo Código único del producto.
+     * @param nombre Nombre del producto.
+     * @param precio Precio unitario del producto.
+     * @param stock Cantidad disponible en inventario.
+     * @param categoria Categoría a la que pertenece el producto.
+     */
+    public Producto(String codigo, String nombre,double precio, int stock, Categoria categoria) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
-        this.categoria = categoria;
     }
     //Métodos Getters y Setters.
     public String getCodigo() {
@@ -43,12 +57,6 @@ public class Producto {
         this.stock = stock;
     }
 
-    public String getCategoria() {
-        return categoria;
-    }
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
     public boolean estaDisponible(int cantidad){
         return cantidad>0 && cantidad<=stock;
     }

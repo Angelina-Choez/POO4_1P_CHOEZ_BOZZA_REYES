@@ -91,29 +91,99 @@ public class Sistema {
         return pedidos;
     }
     public class Main {
-    public static void main(String[] args) {
-        try (Scanner sc = new Scanner(System.in)) {
-            Sistema.agregarUsuario(new Cliente("CL001", "0991234567", "Ana", "Torres", "atorres", "1234", "ana@mail.com", null, "0991234567", "Calle 1"));
-            Sistema.agregarUsuario(new Repartidor("RP001", "0101010101", "Luis", "Medina", "lmedina", "abcd", "luis@mail.com", null, "Envios Express"));
+            public static void main(String[] args) {
+        cargarDatos(); // Método para agregar datos de prueba
 
-            System.out.print("Usuario: ");
-            String user = sc.nextLine();
-            System.out.print("Contraseña: ");
-            String pass = sc.nextLine();
+        Scanner scanner = new Scanner(System.in);
 
-            for (Usuario u : Sistema.obtenerUsuarios()) {
-                if (u.getUsuario().equals(user) && u.getContrasenia().equals(pass)) {
-                    System.out.println("Bienvenido, " + u.getNombres());
-                    if (u instanceof Cliente c) {
-                        ClienteServicio.menuCliente(c);
-                    } else if (u instanceof Repartidor r) {
-                        r.gestionarPedido();
-                    }
-                    return;
-                }
+        System.out.println("===== INICIO DE SESIÓN =====");
+        System.out.print("Usuario: ");
+        String usuarioInput = scanner.nextLine();
+        System.out.print("Contraseña: ");
+        String contrasenaInput = scanner.nextLine();
+
+        Usuario encontrado = null;
+        for (Usuario u : Sistema.obtenerUsuarios()) {
+            if (u.getUsuario().equals(usuarioInput) && u.getContrasenia().equals(contrasenaInput)) {
+                encontrado = u;
+                break;
             }
         }
-        System.out.println("Credenciales incorrectas.");
+
+        if (encontrado == null) {
+            System.out.println("Credenciales incorrectas. Saliendo...");
+            return;
+        }
+
+        System.out.println("Usuario autenticado correctamente.");
+        System.out.println("Rol detectado: " + encontrado.getRol());
+
+        if (encontrado instanceof Cliente) {
+            Cliente cliente = (Cliente) encontrado;
+            System.out.println("Bienvenido, " + cliente.getNombres() + " " + cliente.getApellidos());
+            System.out.println("Celular registrado: " + cliente.getCelular());
+            System.out.print("¿Este número es correcto? (S/N): ");
+            String confirmacion = scanner.nextLine();
+            if (!confirmacion.equalsIgnoreCase("S")) {
+                System.out.println("Verificación fallida. Cerrando sesión.");
+                return;
+            }
+
+            mostrarMenuCliente(cliente, scanner);
+
+        } else if (encontrado instanceof Repartidor) {
+            Repartidor rep = (Repartidor) encontrado;
+            System.out.println("Bienvenido, " + rep.getNombres());
+            System.out.println("Empresa asignada: " + rep.getEmpresa());
+            System.out.print("¿Esta empresa es correcta? (S/N): ");
+            String confirmacion = scanner.nextLine();
+            if (!confirmacion.equalsIgnoreCase("S")) {
+                System.out.println("Verificación fallida. Cerrando sesión.");
+                return;
+            }
+
+            mostrarMenuRepartidor(rep);
+        }
+    }
+
+    private static void mostrarMenuCliente(Cliente cliente, Scanner scanner) {
+        int opcion;
+        do {
+            System.out.println("\nMenú de Cliente:");
+            System.out.println("1. Comprar producto");
+            System.out.println("2. Gestionar pedido");
+            System.out.println("3. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcion) {
+                case 1 ->ClienteServicio.seleccionarProducto(Sistema.obtenerProductos(), cliente);
+                case 2 -> cliente.gestionarPedido();
+                case 3 -> System.out.println("Saliendo...");
+                default -> System.out.println("Opción no válida.");
+            }
+        } while (opcion != 3);
+    }
+
+    private static void mostrarMenuRepartidor(Repartidor rep) {
+        System.out.println("Menú de Repartidor:");
+        rep.gestionarPedido();
+    }
+
+    private static void cargarDatos() {
+        
+        Cliente cliente = new Cliente("CL001", "0991234567", "Ana", "Torres", "atorres", "1234", "ana@mail.com", null, "0991234567", "Calle 1");
+        Repartidor repartidor = new Repartidor("RP001", "0101010101", "Luis", "Medina", "lmedina", "abcd", "luis@mail.com", null, "Envios Express");
+
+        Sistema.agregarUsuario(cliente);
+        Sistema.agregarUsuario(repartidor);
+
+    
+        Producto p1 = new Producto("P001", "Zapatillas", 50.0, 10, Categoria.DEPORTE);
+        Producto p2 = new Producto("P002", "Laptop HP", 600.0, 5, Categoria.TECNOLOGIA);
+        Sistema.agregarProducto(p1);
+        Sistema.agregarProducto(p2);
     }
 }
 }
