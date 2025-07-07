@@ -1,10 +1,6 @@
 package com.proyecto;
 import java.time.LocalDate;
 
-enum EstadoPedido {
-    PENDIENTE, EN_RUTA, ENTREGADO, CANCELADO
-    }
-
 public class Pedido {
     private static int contadorPedidos = 1000;
     
@@ -35,8 +31,7 @@ public class Pedido {
     //Método toString
     @Override
     public String toString(){
-        return "Código de Pedido: "+codigoPedido+", Fecha: "+fecha +", Código de Producto: "+codigoProducto +", Cantidad: "+cantidad +", Valor Pagado: " + valorPagado + 
-               ", Estado: "+estado+", Código de Repartidor: " + codigoRepartidor;
+        return "Código de Pedido: "+codigoPedido+", Fecha: "+fecha +", Código de Producto: "+codigoProducto +", Cantidad: "+cantidad +", Valor Pagado: " + valorPagado +", Estado: "+estado+", Código de Repartidor: " + codigoRepartidor;
     }
 
     //Métodos Getters y Setters.
