@@ -11,9 +11,7 @@ public class Cliente extends Usuario{
         super(codigoUnico, numCed, nombres, apellidos, usuario, contrasenia, correo, rol);
         this.celular = celular;
         this.direccion = direccion;
-    }
-
-    //Métodos Getters y Setters 
+        
     public String getCelular() { 
         return celular; 
     }
@@ -27,29 +25,26 @@ public class Cliente extends Usuario{
     public void setDireccion(String direccion) { 
         this.direccion = direccion; 
     }
-
-    public Pedido comprarProducto(List<Producto> productos, List<Repartidor> repartidores){
-       System.out.println("--------------OPCIÓN DE COMPRA--------------");
-       System.out.println("Categorías disponibles: ");
-       for (Producto producto: productos){
-        System.out.println("- "+producto.getCategoria());
-       } 
+    public Pedido generarPedido(Producto producto, int cantidad, Pago pago, Repartidor repartidor){
+        if (producto==null || repartidor==null || pago==null){
+            return null;
+        }
+        if (!producto.estadoDisponible(cantidad)){
+            return null;
+        }
+        if(!pago.estaVerificado()){
+            return null;
+        }
+        double total= producto.getPrecio()*cantidad;
+        producto.reducirStock(cantidad);
+        return new Pedido(LocalDare.now(), producto.getCodigo(), cantidad, total, EstadoPedido.En_Preparacion, repartidor.getCodigoUnico(), this.getCodigoUnico(), pago);
     }
-
-    Scanner sc= new Scanner(System.in);
-    System.out.println("Ingrese la categoría del producto que desea comprar: ");
-    public String getCelular() {
-        return celular;
+    @Override
+    public void gestionarPedido(){
+        ClienteServicio.consultarEstadoPedido(this);
     }
-    public void setCelular(String celular) {
-        this.celular = celular;
+    @Override
+    public String toString(){
+        return super.toString() +", Celular: " + celular+", Direccioón"+direccion;
     }
-
-    public String getDireccion() {
-        return direccion;
-    }
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
 }
