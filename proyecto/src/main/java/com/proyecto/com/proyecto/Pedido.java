@@ -11,9 +11,11 @@ public class Pedido {
     private double valorPagado;
     private EstadoPedido estado;
     private String codigoRepartidor;
+    private String codigoCliente;
+    private String idPago;
 
     //Constructor para inicializar los atributos.
-    public Pedido(LocalDate fecha, String codigoProducto, int cantidad, double valorPagado, EstadoPedido estado, String codigoRepartidor) {
+    public Pedido(LocalDate fecha, String codigoProducto, int cantidad, double valorPagado, EstadoPedido estado, String codigoRepartidor, String codigoCliente, String idPago) {
         this.codigoPedido = generarCodigoPedido();
         this.fecha = fecha;
         this.codigoProducto = codigoProducto;
@@ -21,6 +23,8 @@ public class Pedido {
         this.valorPagado = valorPagado;
         this.estado = estado;
         this.codigoRepartidor = codigoRepartidor;
+        this.codigoCliente = codigoCliente;
+        this.idPago = idPago;    
     }
 
     //Método para generar un código de pedido único.
@@ -31,7 +35,12 @@ public class Pedido {
     //Método toString
     @Override
     public String toString(){
-        return "Código de Pedido: "+codigoPedido+", Fecha: "+fecha +", Código de Producto: "+codigoProducto +", Cantidad: "+cantidad +", Valor Pagado: " + valorPagado +", Estado: "+estado+", Código de Repartidor: " + codigoRepartidor;
+        String pago= "N/A";
+        if(idPago!=null && !idPago.isEmpty()){
+            pago = "ID de Pago: " + idPago;
+        }
+        return "Código de Pedido: "+codigoPedido+", Fecha: "+fecha +", Código de Producto: "+codigoProducto +", Cantidad: "+cantidad +", Valor Pagado: " + valorPagado +", Estado: "+estado+", Código de Repartidor: " + codigoRepartidor
+            +", Código de Cliente: " + codigoCliente + ", " + pago;
     }
 
     //Métodos Getters y Setters.
@@ -79,5 +88,19 @@ public class Pedido {
     }
     public void setCodigoRepartidor(String codigoRepartidor){
         this.codigoRepartidor = codigoRepartidor;
+    }
+
+    public String getCodigoCliente() {
+        return codigoCliente;
+    }
+    public void setCodigoCliente(String codigoCliente) {
+        this.codigoCliente = codigoCliente;
+    }
+
+    public String getIdPago() {
+        return idPago;
+    }
+    public void setIdPago(String idPago) {
+        this.idPago = idPago;
     }
 } 
