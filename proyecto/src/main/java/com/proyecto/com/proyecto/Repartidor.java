@@ -2,6 +2,11 @@ package com.proyecto;
 
 public class Repartidor extends Usuario{
     private String telefono;
+
+    public Repartidor(String nombres, String apellidos, String telefono){
+        super(nombres, apellidos);
+        this.telefono= telefono;
+    }
     
     public Repartidor(String codigoUnico, String numCed, String nombres, String apellidos, String usuario, String contrasenia, String correo, Rol rol, String telefono) {
         super(codigoUnico, numCed, nombres, apellidos, usuario, contrasenia, correo, rol);
