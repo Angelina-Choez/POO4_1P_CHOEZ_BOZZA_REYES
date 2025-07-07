@@ -14,25 +14,6 @@ public class Producto {
         this.stock = stock;
         this.categoria = categoria;
     }
-
-    //Métodos
-    public void reducirStock(int cantidad){
-        if (this.stock>=cantidad){
-            this.stock-= cantidad;
-        }else{
-            System.out.println("No hay suficiente stock.");
-        }
-    }
-    
-    public boolean estaDisponible(int cantidad){
-        return this.stock >= cantidad;
-    }
-
-    @Override
-    public String toString(){
-        return "Categoría: "+categoria+", Código: "+codigo+", Nombre: "+nombre+", Precio: $"+precio;
-    }
-    
     //Métodos Getters y Setters.
     public String getCodigo() {
         return codigo;
