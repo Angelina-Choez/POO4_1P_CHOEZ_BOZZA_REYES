@@ -1,6 +1,6 @@
 package com.proyecto;
 
 public enum Rol {
-    Cliente, 
+    Cliente,
     Repartidor
 }

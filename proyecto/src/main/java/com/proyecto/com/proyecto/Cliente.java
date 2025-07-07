@@ -11,25 +11,26 @@ public class Cliente extends Usuario{
         super(codigoUnico, numCed, nombres, apellidos, usuario, contrasenia, correo, rol);
         this.celular = celular;
         this.direccion = direccion;
-        
-    public String getCelular() { 
-        return celular; 
     }
-    public void setCelular(String celular) { 
-        this.celular = celular; 
+        
+    public String getCelular() {
+        return celular;
+    }
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 
-    public String getDireccion() { 
-        return direccion; 
+    public String getDireccion() {
+        return direccion;
     }
-    public void setDireccion(String direccion) { 
-        this.direccion = direccion; 
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
     public Pedido generarPedido(Producto producto, int cantidad, Pago pago, Repartidor repartidor){
         if (producto==null || repartidor==null || pago==null){
             return null;
         }
-        if (!producto.estadoDisponible(cantidad)){
+        if (!producto.estaDisponible(cantidad)){
             return null;
         }
         if(!pago.estaVerificado()){
@@ -37,7 +38,7 @@ public class Cliente extends Usuario{
         }
         double total= producto.getPrecio()*cantidad;
         producto.reducirStock(cantidad);
-        return new Pedido(LocalDare.now(), producto.getCodigo(), cantidad, total, EstadoPedido.En_Preparacion, repartidor.getCodigoUnico(), this.getCodigoUnico(), pago);
+        return new Pedido(LocalDate.now(), producto.getCodigo(), cantidad, total, EstadoPedido.EN_PREPARACION, repartidor.getCodigoUnico(), this.getCodigoUnico(), pago);
     }
     @Override
     public void gestionarPedido(){

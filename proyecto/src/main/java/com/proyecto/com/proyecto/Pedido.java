@@ -14,7 +14,6 @@ public class Pedido {
     private String codigoCliente;
     private String idPago;
 
-    //Constructor para inicializar los atributos.
     public Pedido(LocalDate fecha, String codigoProducto, int cantidad, double valorPagado, EstadoPedido estado, String codigoRepartidor, String codigoCliente, String idPago) {
         this.codigoPedido = generarCodigoPedido();
         this.fecha = fecha;
@@ -24,15 +23,13 @@ public class Pedido {
         this.estado = estado;
         this.codigoRepartidor = codigoRepartidor;
         this.codigoCliente = codigoCliente;
-        this.idPago = idPago;    
+        this.idPago = idPago;
     }
 
-    //Método para generar un código de pedido único.
     private String generarCodigoPedido() {
         return "PED" + (++contadorPedidos);
     }
 
-    //Método toString
     @Override
     public String toString(){
         String pago= "N/A";
@@ -43,7 +40,6 @@ public class Pedido {
             +", Código de Cliente: " + codigoCliente + ", " + pago;
     }
 
-    //Métodos Getters y Setters.
     public String getCodigoPedido() {
         return codigoPedido;
     }

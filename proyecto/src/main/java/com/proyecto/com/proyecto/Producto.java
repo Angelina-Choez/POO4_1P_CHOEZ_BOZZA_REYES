@@ -49,5 +49,17 @@ public class Producto {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+    public boolean estaDisponible(int cantidad){
+        return cantidad>0 && cantidad<=stock;
+    }
+    public void reducirStock(int cantidad){
+        if(estaDisponible(cantidad)){
+            this.stock-=cantidad;
+        }
+    }
+    @Override
+    public String toString(){
+        return String.format("%s - %s - $%.2f - Stock: %d", codigo, nombre, precio, stock);
+    }
 }
 

@@ -1,5 +1,4 @@
 package com.proyecto;
-
 public abstract class Usuario{
     protected String codigoUnico;
     protected String numCed;
@@ -10,7 +9,6 @@ public abstract class Usuario{
     protected String correo;
     protected Rol rol;
     
-    // Constructor para inicializar los atributos.
     public Usuario(String codigoUnico, String numCed, String nombres, String apellidos, String usuario, String contrasenia, String correo, Rol rol) {
         this.codigoUnico = codigoUnico;
         this.numCed = numCed;
@@ -21,19 +19,15 @@ public abstract class Usuario{
         this.correo = correo;
         this.rol = rol;
     }
-
-    //Métodos de la clase.
     public abstract void gestionarPedido();
-
-     @Override
-     public String toString(){
+    @Override
+    public String toString(){
         return "Código Único: "+codigoUnico+", Nombre: "+nombres+" "+apellidos+", Rol: "+rol;
-     }
+    }
 
-    //Métodos Getters y Setters.
     public String getCodigoUnico() {
         return codigoUnico;
-    }   
+    }
     public void setCodigoUnico(String codigoUnico) {
         this.codigoUnico = codigoUnico;
     }
@@ -61,10 +55,10 @@ public abstract class Usuario{
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
-    public String getContraseña() {
+    public String getContrasenia() {
         return contrasenia;
     }
-    public void setContraseña(String contrasenia) {
+    public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
     public String getCorreo() {
