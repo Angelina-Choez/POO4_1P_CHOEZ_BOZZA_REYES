@@ -32,15 +32,8 @@ public class Pedido {
 
     @Override
     public String toString(){
-        String detallePago;
-        if (pago != null) {
-            detallePago = pago.getFormaPago() + " - Ref: " + pago.getReferencia();
-        } else {
-            detallePago = "No registrado";
-        }
-
         return "Código de Pedido: "+codigoPedido+", Fecha: "+fecha +", Código de Producto: "+codigoProducto +", Cantidad: "+cantidad +", Valor Pagado: " + valorPagado +", Estado: "+estado+", Código de Repartidor: " + codigoRepartidor
-            +", Código de Cliente: " + codigoCliente + ", Pago" + detallePago;
+            +", Código de Cliente: " + codigoCliente + ", Pago" + pago.getFormaPago();
     }
 
     public String getCodigoPedido() {

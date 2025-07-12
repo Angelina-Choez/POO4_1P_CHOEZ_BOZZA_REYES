@@ -1,0 +1,2 @@
+Código de Pedido: PED1001, Fecha: 2025-07-12, Código de Producto: P001, Cantidad: 2, Valor Pagado: 51.0, Estado: EN_PREPARACION, Código de Repartidor: RP001, Código de Cliente: CL001, PagoTARJETA
+Código de Pedido: PED1001, Fecha: 2025-07-12, Código de Producto: P001, Cantidad: 2, Valor Pagado: 51.0, Estado: EN_PREPARACION, Código de Repartidor: RP001, Código de Cliente: CL001, PagoTARJETA

@@ -20,6 +20,7 @@ public abstract class Usuario{
         this.rol = rol;
     }
     public abstract void gestionarPedido();
+    
     @Override
     public String toString(){
         return "Código Único: "+codigoUnico+", Nombre: "+nombres+" "+apellidos+", Rol: "+rol;

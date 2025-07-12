@@ -25,19 +25,16 @@ public class Cliente extends Usuario{
         this.direccion = direccion;
     }
     public Pedido generarPedido(Producto producto, int cantidad, Pago pago, Repartidor repartidor){
-        if (producto==null || repartidor==null || pago==null){
-            return null;
-        }
-        if (!producto.estaDisponible(cantidad)){
-            return null;
-        }
-        if(!pago.isVerificado()){
+        if (producto==null || repartidor==null || pago==null || !producto.estaDisponible(cantidad) || !pago.isVerificado()){
             return null;
         }
         double total= producto.getPrecio()*cantidad;
         producto.reducirStock(cantidad);
-        return new Pedido(LocalDate.now(), producto.getCodigo(), cantidad, total, EstadoPedido.EN_PREPARACION, repartidor.getCodigoUnico(), this.getCodigoUnico(), pago);
+        Pedido nuevoPedido= new Pedido(LocalDate.now(), producto.getCodigo(), cantidad, total, EstadoPedido.EN_PREPARACION, repartidor.getCodigoUnico(), this.getCodigoUnico(), pago);
+        ManejoArchivos.escribirArchivo("pedidos.txt", nuevoPedido.toString());
+        return nuevoPedido;
     }
+    
     @Override
     public void gestionarPedido(){
         ClienteServicio.consultarEstadoPedido(this);

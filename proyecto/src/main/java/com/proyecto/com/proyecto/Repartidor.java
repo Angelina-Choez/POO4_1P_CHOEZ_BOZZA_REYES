@@ -1,5 +1,7 @@
 package com.proyecto;
 
+import java.util.Scanner;
+
 public class Repartidor extends Usuario{
     private String empresa;
     
@@ -10,7 +12,37 @@ public class Repartidor extends Usuario{
 
     @Override
     public void gestionarPedido(){
-        System.out.println("El repartidor " + this.getNombres() + " " + this.getApellidos() + " está gestionando el pedido.");
+        Scanner sc= new Scanner(System.in);
+        System.out.println("Ingrese el código del pedido: ");
+        String codigo= sc.nextLine();
+        Pedido pedido= Sistema.buscarPedidoPorCodigo(codigo);
+
+        if (pedido==null){
+            System.out.println("El pedido no existe.");
+        } else if (!pedido.getCodigoRepartidor().equals(this.codigoUnico)){
+            System.out.println("Este peddo no está asignado a usted.");
+        }
+
+        System.out.println("Estado actual del pedido: "+pedido.getEstado());
+        if (pedido.getEstado()==EstadoPedido.EN_PREPARACION){
+            System.out.println("¿Desea cambiar el estado a EN_RUTA? (S/O)");
+            String respuesta= sc.nextLine();
+            if (respuesta.equalsIgnoreCase("S")){
+                pedido.setEstado(EstadoPedido.EN_RUTA);
+                System.out.println("Estado cambiado a EN RUTA.");
+                ManejoArchivos.escribirArchivo("pedidos.txt", pedido.toString());
+            }
+        } else if (pedido.getEstado()== EstadoPedido.EN_RUTA){
+            System.out.println("¿Desea cambiar ele stado a ENTREGADO? (S/N)");
+            String resp= sc.nextLine();
+            if (resp.equalsIgnoreCase("S")){
+                pedido.setEstado(EstadoPedido.ENTREGADO);
+                System.out.println("Estado cambiado a ENTREGADO.");
+                ManejoArchivos.escribirArchivo("pedidos.txt", pedido.toString());
+            }
+        } else{
+            System.out.println("El pedido ya está ENTREGADO.");
+        }
     }
 
     @Override
@@ -19,7 +51,7 @@ public class Repartidor extends Usuario{
     }
 
     //Métodos Getters y Setters.
-    public String getTelefono() {
+    public String getEmpresa() {
         return empresa;
     }
     public void setEmpresa(String empresa) {

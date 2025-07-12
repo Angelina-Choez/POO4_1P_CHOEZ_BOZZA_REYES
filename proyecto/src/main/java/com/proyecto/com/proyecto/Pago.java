@@ -6,6 +6,24 @@ public class Pago {
     private double monto;
     private boolean verificado;
     
+    public Pago(String referencia, double monto, FormaPago formaPago){
+        this.formaPago=formaPago;
+        this.referencia=referencia;
+        this.monto= monto;
+        this.verificado=false;
+    }
+
+    public void procesar(){
+        if (formaPago==FormaPago.TARJETA){
+            this.verificado= referencia.length()>=8;
+        }else if (formaPago==FormaPago.EFECTIVO){
+            this.verificado= referencia != null && !referencia.isEmpty();
+        }else{
+            this.verificado= false;
+        }
+    }
+
+    //Métodos Getters y Setters
     public FormaPago getFormaPago() {
         return formaPago;
     }
@@ -31,21 +49,5 @@ public class Pago {
     public void setVerificado(boolean verificado) {
         this.verificado = verificado;
     }
-    public Pago(String referencia, double monto, FormaPago formaPago){
-        this.formaPago=formaPago;
-        this.referencia=referencia;
-        this.monto= monto;
-        this.verificado=false;
-    }
-    public void procesar() {
-        if (formaPago == FormaPago.TRANSFERENCIA) {
-            this.verificado = referencia != null && !referencia.isEmpty();
-        } else if (formaPago == FormaPago.TARJETA) {
-            this.verificado = referencia != null && referencia.length() >= 8; // ejemplo simple
-        } else {
-            this.verificado = true;
-        }
-    }
-
     
 }

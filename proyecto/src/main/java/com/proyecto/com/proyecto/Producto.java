@@ -5,14 +5,8 @@ public class Producto {
     private String nombre;
     private double precio;
     private int stock;
-    private String categoria;
+    private Categoria categoria;
 
-    public String getCategoria() {
-        return categoria;
-    }
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
         /**
      * Constructor para crear un producto con todos sus datos.
      *
@@ -27,7 +21,25 @@ public class Producto {
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
+        this.categoria= categoria;
     }
+
+    //Métodos de la clase.
+    public boolean estaDisponible(int cantidad){
+        return cantidad>0 && cantidad<=stock;
+    }
+
+    public void reducirStock(int cantidad){
+        if(estaDisponible(cantidad)){
+            this.stock-=cantidad;
+        }
+    }
+
+    @Override
+    public String toString(){
+        return String.format("%s - %s - $%.2f - Stock: %d", codigo, nombre, precio, stock);
+    }
+
     //Métodos Getters y Setters.
     public String getCodigo() {
         return codigo;
@@ -57,17 +69,10 @@ public class Producto {
         this.stock = stock;
     }
 
-    public boolean estaDisponible(int cantidad){
-        return cantidad>0 && cantidad<=stock;
+    public Categoria getCategoria() {
+        return categoria;
     }
-    public void reducirStock(int cantidad){
-        if(estaDisponible(cantidad)){
-            this.stock-=cantidad;
-        }
-    }
-    @Override
-    public String toString(){
-        return String.format("%s - %s - $%.2f - Stock: %d", codigo, nombre, precio, stock);
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }
-
