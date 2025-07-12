@@ -1,16 +1,11 @@
 package com.proyecto;
 
 public class Repartidor extends Usuario{
-    private String telefono;
-
-    public Repartidor(String nombres, String apellidos, String telefono){
-        super(nombres, apellidos);
-        this.telefono= telefono;
-    }
+    private String empresa;
     
-    public Repartidor(String codigoUnico, String numCed, String nombres, String apellidos, String usuario, String contrasenia, String correo, Rol rol, String telefono) {
+    public Repartidor(String codigoUnico, String numCed, String nombres, String apellidos, String usuario, String contrasenia, String correo, Rol rol, String empresa) {
         super(codigoUnico, numCed, nombres, apellidos, usuario, contrasenia, correo, rol);
-        this.telefono = telefono;
+        this.empresa = empresa;
     }
 
     @Override
@@ -20,21 +15,14 @@ public class Repartidor extends Usuario{
 
     @Override
     public String toString(){
-        return super.toString()+ ", Teléfono: "+telefono;
+        return super.toString()+ ", Empresa: "+empresa;
     }
 
     //Métodos Getters y Setters.
     public String getTelefono() {
-        return telefono;
+        return empresa;
     }
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
     }
-
-    public String getEmpresa() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEmpresa'");
-    }
-
-
 }
