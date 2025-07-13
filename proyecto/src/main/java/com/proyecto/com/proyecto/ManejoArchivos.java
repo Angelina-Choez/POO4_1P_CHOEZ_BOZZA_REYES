@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,4 +33,14 @@ public class ManejoArchivos {
             System.out.println("Error al escribir archivo: "+ e.getMessage());
         }
     }
+    public static void sobrescribirArchivo(String ruta, List<String> contenido) {
+        try (PrintWriter pw = new PrintWriter(ruta)) {
+            for (String linea : contenido) {
+            pw.println(linea);
+            }
+            } catch (IOException e) {
+            System.out.println("Error al sobrescribir el archivo: " + ruta);
+        }
+    }
+
 }

@@ -14,7 +14,7 @@ public class Pedido {
     private String codigoCliente;
     private Pago pago;
 
-    public Pedido(LocalDate fecha, String codigoProducto, int cantidad, double valorPagado, EstadoPedido estado, String codigoRepartidor, String codigoCliente, Pago pago) {
+    public Pedido(String codigoPedido, LocalDate fecha, String codigoProducto, int cantidad, double valorPagado, EstadoPedido estado, String codigoRepartidor, String codigoCliente, Pago pago) {
         this.codigoPedido = generarCodigoPedido();
         this.fecha = fecha;
         this.codigoProducto = codigoProducto;
@@ -25,7 +25,9 @@ public class Pedido {
         this.codigoCliente = codigoCliente;
         this.pago = pago;
     }
-
+    public Pedido(LocalDate fecha, String codigoProducto, int cantidad,double valorPagado, EstadoPedido estado, String codigoRepartidor,String codigoCliente, Pago pago) {
+        this("PED" , fecha, codigoProducto, cantidad,valorPagado, estado, codigoRepartidor, codigoCliente, pago);
+    }
     private String generarCodigoPedido() {
         return "PED" + (++contadorPedidos);
     }
@@ -34,6 +36,9 @@ public class Pedido {
     public String toString(){
         return "Código de Pedido: "+codigoPedido+", Fecha: "+fecha +", Código de Producto: "+codigoProducto +", Cantidad: "+cantidad +", Valor Pagado: " + valorPagado +", Estado: "+estado+", Código de Repartidor: " + codigoRepartidor
             +", Código de Cliente: " + codigoCliente + ", Pago" + pago.getFormaPago();
+    }
+    public String toArchivo() {
+        return codigoPedido + ";" + fecha + ";" + codigoProducto + ";" + cantidad + ";" + valorPagado + ";" + estado + ";" + codigoRepartidor + ";" + codigoCliente + ";" + pago.getFormaPago() + ";" + pago.getReferencia() + ";" + pago.getMonto();
     }
 
     public String getCodigoPedido() {
