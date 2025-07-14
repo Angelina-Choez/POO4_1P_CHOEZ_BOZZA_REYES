@@ -3,24 +3,49 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+/**
+ * Clase principal que gestiona el funcionamiento del sistema.
+ * Controla usuarios, productos, pedidos y toda la lógica del flujo de la aplicación.
+ *
+ * Permite la carga desde archivos, autenticación de usuarios,
+ * notificaciones y operaciones específicas según el tipo de usuario (cliente o repartidor).
+ *
+ * @author Daniela Bozza
+ * @author Paola Reyes
+ */
 public class Sistema {
     private static final List<Usuario> usuarios = new ArrayList<>();
     private static final List<Producto> productos = new ArrayList<>();
-    private static final List<Pedido> pedidos = new ArrayList<>(); 
-    
+    private static final List<Pedido> pedidos = new ArrayList<>();
+
+    /**
+     * Agrega un nuevo usuario al sistema.
+     * @param usuario Usuario a agregar.
+     */
     public static void agregarUsuario(Usuario usuario){
         usuarios.add(usuario);
     }
-
+    /**
+     * Agrega un nuevo producto al sistema.
+     * @param producto Producto a agregar.
+     */
     public static void agregarProducto(Producto producto){
         productos.add(producto);
     }
+    /**
+     * Agrega un nuevo pedido al sistema y lo guarda en el archivo.
+     * @param pedido Pedido a agregar.
+     */
 
     public static void agregarPedido(Pedido pedido){
         pedidos.add(pedido);
         ManejoArchivos.escribirArchivo("pedidos.txt", pedido.toArchivo());
     }
+    /**
+     * Busca un pedido por su código.
+     * @param codigo Código del pedido.
+     * @return Pedido encontrado o null si no existe.
+     */
 
     public static Pedido buscarPedidoPorCodigo(String codigo){
         for(Pedido p: pedidos){
@@ -30,14 +55,22 @@ public class Sistema {
         }
         return null;
     }
+    /**
+     * Busca un usuario por su código único.
+     * @param codigo Código del usuario.
+     * @return Usuario encontrado o null si no existe.
+     */
     public static Usuario buscarUsuarioPorCodigo(String codigo) {
         for (Usuario u : usuarios) {
             if (u.getCodigoUnico().equalsIgnoreCase(codigo)) {
                 return u;
-        }
+            }
         }
         return null;
-        }
+    }
+    /**
+     * Envía notificación al cliente cuando realiza un pedido.
+     */
     public static void notificar(Cliente cliente, Pedido pedido, Producto producto) {
         System.out.println("=====NOTIFICACION A CLIENTE======");
         System.out.println("Para: " + cliente.getCorreo());
@@ -49,6 +82,9 @@ public class Sistema {
         System.out.println("Estado inicial: " + pedido.getEstado());
         System.out.println("Gracias por su compra. Recibirá actualizaciones del estado de su pedido por este medio.");
         }
+    /**
+     * Envía notificación al repartidor cuando se le asigna un pedido.
+     */
 
     public static void notificar(Repartidor repartidor, Pedido pedidoAsignado, Cliente cliente) {
         System.out.println("======NOTIFICACION A REPARTIDOR=======");
@@ -63,6 +99,9 @@ public class Sistema {
         System.out.println("Por favor, prepare la logística necesaria para la entrega.");
         System.out.println("Gracias por su trabajo.");
         }
+    /**
+     * Envía notificación al cliente cuando cambia el estado de su pedido.
+     */
 
     public static void notificar(Cliente cliente, Pedido pedido, EstadoPedido nuevoEstado) {
         System.out.println("=====NOTIFICACION DE CAMBIO DE ESTADO======");
@@ -74,11 +113,17 @@ public class Sistema {
         System.out.println("Repartidor asignado: "+ pedido.getCodigoRepartidor());
         System.out.println("Gracias por confiar en nosotros.");
         }
-
+    /**
+     * Devuelve la lista actual de productos cargados.
+     * @return lista de productos.
+     */
     public static List<Producto> obteneProductos(){
         return productos;
     }
-
+    /**
+     * Obtiene todos los repartidores registrados.
+     * @return lista de repartidores.
+     */
     public static List<Repartidor> obtenerRepartidors(){
         List<Repartidor> lista= new ArrayList<>();
         for(Usuario u: usuarios){
@@ -88,6 +133,11 @@ public class Sistema {
         }
         return lista;
     }
+    /**
+     * Obtiene todos los pedidos realizados por un cliente.
+     * @param codigoCliente código del cliente.
+     * @return lista de pedidos asociados.
+     */
 
     public static List<Pedido> obtenerPedidosPorCliente(String codigoCliente){
         List<Pedido> lista= new ArrayList<>();
@@ -98,6 +148,10 @@ public class Sistema {
         }
         return lista;
     }
+    /**
+     * Carga los usuarios desde un archivo de texto.
+     * @param ruta Ruta del archivo.
+     */
 
     public static void cargarUsuariosDesdeArchivo(String ruta) {
         List<String> lineas = ManejoArchivos.leerArchivo(ruta);
@@ -112,6 +166,11 @@ public class Sistema {
             }
         }
     }
+    
+    /**
+     * Carga los productos desde un archivo de texto.
+     * @param ruta Ruta del archivo.
+     */
 
     public static void cargarProductosDesdeArchivo(String ruta) {
         List<String> lineas = ManejoArchivos.leerArchivo(ruta);
@@ -123,6 +182,10 @@ public class Sistema {
             }
         }
     }
+    /**
+     * Carga los pedidos desde un archivo de texto.
+     * @param ruta Ruta del archivo.
+     */
 
     public static void cargarPedidosDesdeArchivo(String ruta) {
         List<String> lineas = ManejoArchivos.leerArchivo(ruta);
@@ -135,34 +198,32 @@ public class Sistema {
             }
         }
     }
+    /**
+     * Sobrescribe el archivo de pedidos con los datos actuales en memoria.
+     */
     public static void actualizarArchivoPedidos() {
         List<String> nuevasLineas = new ArrayList<>();
         for (Pedido p : pedidos) {
             nuevasLineas.add(p.toArchivo());
         }
         ManejoArchivos.sobrescribirArchivo("pedidos.txt", nuevasLineas);
-        }
-
-
-
+    }
+    /**
+     * Carga todos los datos desde archivos.
+     */
     public static void cargarDatos() {
         cargarUsuariosDesdeArchivo("clientes.txt");
         cargarUsuariosDesdeArchivo("repartidores.txt");
         cargarProductosDesdeArchivo("productos.txt");
         cargarPedidosDesdeArchivo("pedidos.txt");
     }
-
+    /**
+     * Método principal del sistema. Inicia el flujo completo del programa.
+     * Permite login de clientes y repartidores con menús distintos para cada uno.
+     * @param args Argumentos de la línea de comandos.
+     */
     public static void main(String[] args) {
         cargarDatos();
-        Cliente c= new Cliente("CL001", "0102030405", "Ana", "Perez", "ana", "1234", "ana@mail.com", Rol.CLIENTE, "099999999", "Av. Siempre Viva");
-        Repartidor r= new Repartidor("REP001", "0607080910", "Luis", "Martinez", "luis", "5678", "luis@mail.com", Rol.REPARTIDOR, "EnviosYA");
-        agregarUsuario(c);
-        agregarUsuario(r);
-
-        Producto p1= new Producto("P001", "Laptop Lenovo", 850.0, 5, Categoria.TECNOLOGIA);
-        Producto p2= new Producto("P002", "Camiseta Azul", 15.0, 20, Categoria.ROPA);
-        agregarProducto(p1);
-        agregarProducto(p2);
 
         Scanner sc = new Scanner(System.in);
     while (true) {

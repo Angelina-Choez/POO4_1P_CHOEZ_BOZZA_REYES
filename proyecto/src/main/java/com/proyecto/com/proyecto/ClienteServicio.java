@@ -2,8 +2,26 @@ package com.proyecto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+/**
+ * Clase de servicio que gestiona las operaciones relacionadas con el cliente,
+ * como el proceso de compra y la consulta de pedidos.
+ *
+ * Proporciona métodos estáticos que permiten iniciar una compra 
+ * y consultar el estado de los pedidos del cliente.
+ *
+ * @author Paola Reyes
+ */
 public class ClienteServicio {
-    
+    /**
+     * Inicia el proceso de compra para un cliente.
+     * Permite seleccionar una categoría, un producto, definir la cantidad, 
+     * elegir la forma de pago, y genera un pedido si todo es válido.
+     * 
+     * @param cliente      Cliente que realiza la compra
+     * @param productos    Lista de productos disponibles
+     * @param repartidores Lista de repartidores disponibles
+     * @return Pedido generado o null si hay algún error en el proceso
+     */
     public static Pedido iniciarCompra(Cliente cliente, List<Producto> productos, List<Repartidor> repartidores) {
         Scanner sc= new Scanner(System.in);
         System.out.println("=====PROCESO DE COMPRA=====");
@@ -95,6 +113,12 @@ public class ClienteServicio {
         }
         return pedido;
     }
+    /**
+     * Permite al cliente consultar el estado de todos sus pedidos registrados en el sistema.
+     * Muestra una lista de los pedidos realizados por el cliente.
+     *
+     * @param cliente Cliente que desea consultar sus pedidos
+     */
 
     public static void consultarEstadoPedido(Cliente cliente){
         List <Pedido> pedidosCliente = Sistema.obtenerPedidosPorCliente(cliente.getCodigoUnico());
