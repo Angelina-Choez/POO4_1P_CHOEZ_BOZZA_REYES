@@ -11,7 +11,7 @@ package com.proyecto;
  * Este enum permite que el sistema maneje diferentes métodos de pago
  * de manera organizada y extensible.
  *
- * @author Paola Reyes
+ * @author Daniela Bozza
  */
 public enum FormaPago {
     /**
