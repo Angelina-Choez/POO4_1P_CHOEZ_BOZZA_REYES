@@ -59,7 +59,7 @@ public class ClienteServicio {
         double total= seleccionado.getPrecio()*cantidad;
         System.out.printf("Total a pagar: $%.2f\\n", total);
 
-        System.out.println("Formas de pago: ");
+        System.out.println("\nFormas de pago: ");
         for (FormaPago fp: FormaPago.values()){
             System.out.println("- "+fp);
         }
@@ -88,6 +88,8 @@ public class ClienteServicio {
         if (pedido!= null){
             Sistema.agregarPedido(pedido);
             System.out.println("Pedido agregado exitosamente: "+pedido.getCodigoPedido());
+            Sistema.notificar(cliente, pedido, seleccionado);
+            Sistema.notificar(repartidor, pedido, cliente);
         } else{
             System.out.println("Error al generar pedido.");
         }

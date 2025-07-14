@@ -19,7 +19,7 @@ public class Sistema {
 
     public static void agregarPedido(Pedido pedido){
         pedidos.add(pedido);
-        ManejoArchivos.escribirArchivo("pedidos.txt", pedido.toString());
+        ManejoArchivos.escribirArchivo("pedidos.txt", pedido.toArchivo());
     }
 
     public static Pedido buscarPedidoPorCodigo(String codigo){
@@ -38,38 +38,41 @@ public class Sistema {
         }
         return null;
         }
-    public static void notificar(Cliente cliente, Pedido pedido) {
-        System.out.println("\n[NOTIFICACIÓN A CLIENTE]");
+    public static void notificar(Cliente cliente, Pedido pedido, Producto producto) {
+        System.out.println("=====NOTIFICACION A CLIENTE======");
         System.out.println("Para: " + cliente.getCorreo());
-        System.out.println("Asunto: Confirmación de pedido");
-        System.out.println("Hola " + cliente.getNombres() + ",");
-        System.out.println("Su pedido con código " + pedido.getCodigoPedido() + " ha sido registrado correctamente.");
-        System.out.println("Fecha: " + pedido.getFecha());
-        System.out.printf("Monto: $%.2f\n", pedido.getValorPagado());
-        System.out.println("Estado actual: " + pedido.getEstado());
-        System.out.println("¡Gracias por su compra!");
+        System.out.println("Asunto: Pedido realizado.");
+        System.out.println("El cliente " + cliente.getNombres() + ","+ cliente.getApellidos()+" ha realizado un pedido con código "+ pedido.getCodigoPedido()+" el día "+ pedido.getFecha());
+        System.out.println("Producto: "+ producto.getNombre());
+        System.out.println("Cantidad: "+ pedido.getCantidad());
+        System.out.printf("Valor: ", pedido.getValorPagado());
+        System.out.println("Estado inicial: " + pedido.getEstado());
+        System.out.println("Gracias por su compra. Recibirá actualizaciones del estado de su pedido por este medio.");
         }
 
-    public static void notificar(Repartidor repartidor, Pedido pedidoAsignado) {
-        System.out.println("\n[NOTIFICACIÓN A REPARTIDOR]");
+    public static void notificar(Repartidor repartidor, Pedido pedidoAsignado, Cliente cliente) {
+        System.out.println("======NOTIFICACION A REPARTIDOR=======");
         System.out.println("Para: " + repartidor.getCorreo());
         System.out.println("Asunto: Nuevo pedido asignado");
-        System.out.println("Estimado " + repartidor.getNombres() + ",");
-        System.out.println("Se le ha asignado el pedido " + pedidoAsignado.getCodigoPedido());
-        System.out.println("Debe preparar el envío para el cliente con código: " + pedidoAsignado.getCodigoCliente());
-        System.out.println("Fecha de asignación: " + pedidoAsignado.getFecha());
-        System.out.println("Por favor revise su bandeja de entregas.");
+        System.out.println("Estimado " + repartidor.getNombres() + " "+ repartidor.getApellidos()+ ",");
+        System.out.println("Se le ha asignado un nuevo pedido con los siguientes detalles: ");
+        System.out.println("Código del pedido: " + pedidoAsignado.getCodigoPedido());
+        System.out.println("Fecha del pedido: : " + pedidoAsignado.getFecha());
+        System.out.println("Cliente: "+ cliente.getNombres()+ " "+ cliente.getApellidos());
+        System.out.println("Estado actual: "+ pedidoAsignado.getEstado());
+        System.out.println("Por favor, prepare la logística necesaria para la entrega.");
+        System.out.println("Gracias por su trabajo.");
         }
 
     public static void notificar(Cliente cliente, Pedido pedido, EstadoPedido nuevoEstado) {
-        System.out.println("\n[NOTIFICACIÓN DE CAMBIO DE ESTADO]");
+        System.out.println("=====NOTIFICACION DE CAMBIO DE ESTADO======");
         System.out.println("Para: " + cliente.getCorreo());
-        System.out.println("Asunto: Estado actualizado de su pedido");
-        System.out.println("Hola " + cliente.getNombres() + ",");
-        System.out.println("Su pedido con código " + pedido.getCodigoPedido() + " ha cambiado de estado.");
-        System.out.println("Nuevo estado: " + nuevoEstado);
-        System.out.println("Fecha: " + LocalDate.now());
-        System.out.println("Gracias por confiar en nuestro servicio.");
+        System.out.println("Asunto: Actualización del estado de su pedido");
+        System.out.println("Estimado/a " + cliente.getNombres() + " "+ cliente.getApellidos()+ ",");
+        System.out.println("Le informamos que el estado de su pedido con código "+ pedido.getCodigoPedido()+ " ha cambiado a: "+ nuevoEstado);
+        System.out.println("Fecha del pedido: " + LocalDate.now());
+        System.out.println("Repartidor asignado: "+ pedido.getCodigoRepartidor());
+        System.out.println("Gracias por confiar en nosotros.");
         }
 
     public static List<Producto> obteneProductos(){
@@ -151,161 +154,170 @@ public class Sistema {
 
     public static void main(String[] args) {
         cargarDatos();
+        Cliente c= new Cliente("CL001", "0102030405", "Ana", "Perez", "ana", "1234", "ana@mail.com", Rol.CLIENTE, "099999999", "Av. Siempre Viva");
+        Repartidor r= new Repartidor("REP001", "0607080910", "Luis", "Martinez", "luis", "5678", "luis@mail.com", Rol.REPARTIDOR, "EnviosYA");
+        agregarUsuario(c);
+        agregarUsuario(r);
+
+        Producto p1= new Producto("P001", "Laptop Lenovo", 850.0, 5, Categoria.TECNOLOGIA);
+        Producto p2= new Producto("P002", "Camiseta Azul", 15.0, 20, Categoria.ROPA);
+        agregarProducto(p1);
+        agregarProducto(p2);
 
         Scanner sc = new Scanner(System.in);
-while (true) {
-    System.out.println("===== INICIO DE SESIÓN =====");
-    System.out.print("Usuario: ");
-    String user = sc.nextLine();
-    System.out.print("Contraseña: ");
-    String contrasena = sc.nextLine();
+    while (true) {
+        System.out.println("===== INICIO DE SESION =====");
+        System.out.print("Usuario: ");
+        String user = sc.nextLine();
+        System.out.print("Contraseña: ");
+        String contrasena = sc.nextLine();
 
-    Usuario uInicioSesion = null;
-    for (Usuario u : usuarios) {
-        if (u.getUsuario().equals(user) && u.getContrasenia().equals(contrasena)) {
-            uInicioSesion = u;
-            break;
-        }
-    }
-
-    if (uInicioSesion == null) {
-        System.out.println("Credenciales incorrectas. ¿Desea intentar otra vez? (S/N): ");
-        String op = sc.nextLine();
-        if (!op.equalsIgnoreCase("S")) {
-            System.out.println("Saliendo del sistema...");
-            break;
-        } else {
-            continue; // vuelve a pedir usuario/contraseña
-        }
-    }
-
-    // Si es Cliente
-    if (uInicioSesion instanceof Cliente cliente) {
-        System.out.println("\nBienvenido/a, " + cliente.getNombres() + " " + cliente.getApellidos());
-        System.out.println("Celular registrado: " + cliente.getCelular());
-        System.out.print("¿Este número es correcto? (S/N): ");
-        String confirm = sc.nextLine();
-        if (!confirm.equalsIgnoreCase("S")) {
-            System.out.println("Verificación fallida. Se cerrará la sesión por seguridad.");
-            continue; // volver a inicio de sesión
-        }
-
-        while (true) {
-            System.out.println("\n===== MENÚ CLIENTE =====");
-            System.out.println("1. Comprar producto");
-            System.out.println("2. Consultar estado de pedido");
-            System.out.println("3. Cerrar sesión");
-            System.out.print("Seleccione una opción: ");
-
-            int opcion;
-            try {
-                opcion = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Opción inválida.");
-                continue;
-            }
-
-            switch (opcion) {
-                case 1 -> ClienteServicio.iniciarCompra(cliente, productos, obtenerRepartidors());
-                case 2 -> cliente.gestionarPedido();
-                case 3 -> {
-                    System.out.println("Cerrando sesión...");
-                    uInicioSesion = null;
-                    break;
-                }
-                default -> System.out.println("Opción no válida.");
-            }
-
-            if (opcion == 3) break; // rompe solo el menú de cliente
-        }
-    }
-
-    // Si es Repartidor
-    else if (uInicioSesion instanceof Repartidor rep) {
-        System.out.println("\nBienvenido repartidor: " + rep.getNombres() + " " + rep.getApellidos());
-        System.out.println("Empresa asignada: " + rep.getEmpresa());
-        System.out.print("¿Esta empresa es correcta? (S/N): ");
-        String confirm = sc.nextLine();
-        if (!confirm.equalsIgnoreCase("S")) {
-            System.out.println("Verificación fallida. Se cerrará la sesión por seguridad.");
-            continue; // volver a login
-        }
-
-        // Menú para repartidor si deseas extender
-        while (true) {
-            System.out.println("\n===== MENÚ REPARTIDOR =====");
-            System.out.println("1. Ver pedidos asignados");
-            System.out.println("2. Cambiar estado de un pedido");
-            System.out.println("3. Cerrar sesión");
-            System.out.print("Seleccione una opción: ");
-            int op;
-            try {
-                op = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Opción inválida.");
-                continue;
-            }
-            switch (op) {
-        case 1 -> {
-            System.out.println("\nPedidos asignados a usted:");
-            boolean tiene = false;
-            for (Pedido p : pedidos) {
-                if (p.getCodigoRepartidor().equals(rep.getCodigoUnico())) {
-                    System.out.println("Código: " + p.getCodigoPedido() +
-                        ", Cliente: " + p.getCodigoCliente() +
-                        ", Estado: " + p.getEstado());
-                    tiene = true;
-                }
-            }
-            if (!tiene) {
-                System.out.println("No tiene pedidos asignados.");
+        Usuario uInicioSesion = null;
+        for (Usuario u : usuarios) {
+            if (u.getUsuario().equals(user) && u.getContrasenia().equals(contrasena)) {
+                uInicioSesion = u;
+                break;
             }
         }
-        case 2 -> {
-            System.out.print("Ingrese el código del pedido a actualizar: ");
-            String codigo = sc.nextLine();
-            Pedido pedido = buscarPedidoPorCodigo(codigo);
-            if (pedido == null || !pedido.getCodigoRepartidor().equals(rep.getCodigoUnico())) {
-                System.out.println("Pedido no encontrado o no está asignado a usted.");
+
+        if (uInicioSesion == null) {
+            System.out.println("Credenciales incorrectas. ¿Desea intentar otra vez? (S/N): ");
+            String op = sc.nextLine();
+            if (!op.equalsIgnoreCase("S")) {
+                System.out.println("Saliendo del sistema...");
+                break;
             } else {
-                System.out.println("Estado actual: " + pedido.getEstado());
-                System.out.println("Estados disponibles:");
-                for (EstadoPedido est : EstadoPedido.values()) {
-                    System.out.println("- " + est);
-                }
-                System.out.print("Ingrese el nuevo estado: ");
-                String nuevo = sc.nextLine().toUpperCase();
-                try {
-                    EstadoPedido nuevoEstado = EstadoPedido.valueOf(nuevo);
-                    if (pedido.getEstado() == EstadoPedido.EN_PREPARACION && nuevoEstado == EstadoPedido.ENTREGADO) {
-                        System.out.println("No puede saltar directamente de EN_PREPARACION a ENTREGADO.");
-                    } else {
-                        pedido.setEstado(nuevoEstado);
-                        actualizarArchivoPedidos(); // para guardar el cambio
-                        System.out.println("Estado actualizado.");
-                        Cliente cliente = (Cliente) buscarUsuarioPorCodigo(pedido.getCodigoCliente());
-                        if (cliente != null) {
-                            notificar(cliente, pedido, nuevoEstado);
-                        }
-                    }
-                } catch (Exception e) {
-                    System.out.println("Estado inválido.");
-                }
+                continue; // vuelve a pedir usuario/contraseña
             }
         }
-        case 3 -> {
-            System.out.println("Cerrando sesión...");
-            break;
-        }
-        default -> System.out.println("Opción inválida.");
-    }
-    if (op ==3)break;
-        }
-    }
-}
 
-// Fuera del while: sale del sistema
-System.out.println("Gracias por usar el sistema.");
+        // Si es Cliente
+        if (uInicioSesion instanceof Cliente cliente) {
+            System.out.println("\nBienvenido/a, " + cliente.getNombres() + " " + cliente.getApellidos());
+            System.out.println("Celular registrado: " + cliente.getCelular());
+            System.out.print("¿Este número es correcto? (S/N): ");
+            String confirm = sc.nextLine();
+            if (!confirm.equalsIgnoreCase("S")) {
+                System.out.println("Verificación fallida. Se cerrará la sesión por seguridad.");
+                continue; // volver a inicio de sesión
+            }
 
+            while (true) {
+                System.out.println("\n===== MENU CLIENTE =====");
+                System.out.println("1. Comprar producto");
+                System.out.println("2. Consultar estado de pedido");
+                System.out.println("3. Cerrar sesión");
+                System.out.print("Seleccione una opción: ");
+
+                int opcion;
+                try {
+                    opcion = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Opción inválida.");
+                    continue;
+                }
+
+                switch (opcion) {
+                    case 1 -> ClienteServicio.iniciarCompra(cliente, productos, obtenerRepartidors());
+                    case 2 -> cliente.gestionarPedido();
+                    case 3 -> {
+                        System.out.println("Cerrando sesión...");
+                        uInicioSesion = null;
+                        break;
+                    }
+                    default -> System.out.println("Opción no válida.");
+                }
+
+                if (opcion == 3) break; // rompe solo el menú de cliente
+            }
+        }
+
+        // Si es Repartidor
+        else if (uInicioSesion instanceof Repartidor rep) {
+            System.out.println("\nBienvenido repartidor: " + rep.getNombres() + " " + rep.getApellidos());
+            System.out.println("Empresa asignada: " + rep.getEmpresa());
+            System.out.print("¿Esta empresa es correcta? (S/N): ");
+            String confirm = sc.nextLine();
+            if (!confirm.equalsIgnoreCase("S")) {
+                System.out.println("Verificación fallida. Se cerrará la sesión por seguridad.");
+                continue; // volver a login
+            }
+
+            // Menú para repartidor si deseas extender
+            while (true) {
+                System.out.println("\n===== MENU REPARTIDOR =====");
+                System.out.println("1. Ver pedidos asignados");
+                System.out.println("2. Cambiar estado de un pedido");
+                System.out.println("3. Cerrar sesión");
+                System.out.print("Seleccione una opción: ");
+                int op;
+                try {
+                    op = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Opción inválida.");
+                    continue;
+                }
+                switch (op) {
+            case 1 -> {
+                System.out.println("\nPedidos asignados a usted:");
+                boolean tiene = false;
+                for (Pedido p : pedidos) {
+                    if (p.getCodigoRepartidor().equals(rep.getCodigoUnico())) {
+                        System.out.println("Código: " + p.getCodigoPedido() +
+                            ", Cliente: " + p.getCodigoCliente() +
+                            ", Estado: " + p.getEstado());
+                        tiene = true;
+                    }
+                }
+                if (!tiene) {
+                    System.out.println("No tiene pedidos asignados.");
+                }
+            }
+            case 2 -> {
+                System.out.print("Ingrese el código del pedido a actualizar: ");
+                String codigo = sc.nextLine();
+                Pedido pedido = buscarPedidoPorCodigo(codigo);
+                if (pedido == null || !pedido.getCodigoRepartidor().equals(rep.getCodigoUnico())) {
+                    System.out.println("Pedido no encontrado o no está asignado a usted.");
+                } else {
+                    System.out.println("Estado actual: " + pedido.getEstado());
+                    System.out.println("Estados disponibles:");
+                    for (EstadoPedido est : EstadoPedido.values()) {
+                        System.out.println("- " + est);
+                    }
+                    System.out.print("Ingrese el nuevo estado: ");
+                    String nuevo = sc.nextLine().toUpperCase();
+                    try {
+                        EstadoPedido nuevoEstado = EstadoPedido.valueOf(nuevo);
+                        if (pedido.getEstado() == EstadoPedido.EN_PREPARACION && nuevoEstado == EstadoPedido.ENTREGADO) {
+                            System.out.println("No puede saltar directamente de EN_PREPARACION a ENTREGADO.");
+                        } else {
+                            pedido.setEstado(nuevoEstado);
+                            actualizarArchivoPedidos(); // para guardar el cambio
+                            System.out.println("Estado actualizado.");
+                            Cliente cliente = (Cliente) buscarUsuarioPorCodigo(pedido.getCodigoCliente());
+                            if (cliente != null) {
+                                notificar(cliente, pedido, nuevoEstado);
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Estado inválido.");
+                    }
+                }
+            }
+            case 3 -> {
+                System.out.println("Cerrando sesión...");
+                break;
+            }
+            default -> System.out.println("Opción inválida.");
+        }
+        if (op ==3)break;
+            }
+        }
     }
-}
+
+    // Fuera del while: sale del sistema
+    System.out.println("Gracias por usar el sistema.");
+
+        }
+    }

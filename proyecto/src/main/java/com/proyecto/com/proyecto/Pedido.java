@@ -41,6 +41,7 @@ public class Pedido {
         return codigoPedido + ";" + fecha + ";" + codigoProducto + ";" + cantidad + ";" + valorPagado + ";" + estado + ";" + codigoRepartidor + ";" + codigoCliente + ";" + pago.getFormaPago() + ";" + pago.getReferencia() + ";" + pago.getMonto();
     }
 
+    //Getters y Setters
     public String getCodigoPedido() {
         return codigoPedido;
     }
