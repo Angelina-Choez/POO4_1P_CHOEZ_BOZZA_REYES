@@ -59,7 +59,7 @@ public class ClienteServicio {
         double total= seleccionado.getPrecio()*cantidad;
         System.out.printf("Total a pagar: $%.2f\\n", total);
 
-        System.out.println("\nFormas de pago: ");
+        System.out.println("Formas de pago: ");
         for (FormaPago fp: FormaPago.values()){
             System.out.println("- "+fp);
         }

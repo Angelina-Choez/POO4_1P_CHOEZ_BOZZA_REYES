@@ -171,6 +171,7 @@ public class Sistema {
         String user = sc.nextLine();
         System.out.print("Contraseña: ");
         String contrasena = sc.nextLine();
+        System.out.println("\nUsuario autenticado correctamente.");
 
         Usuario uInicioSesion = null;
         for (Usuario u : usuarios) {
@@ -193,6 +194,7 @@ public class Sistema {
 
         // Si es Cliente
         if (uInicioSesion instanceof Cliente cliente) {
+            System.out.println("\nRol detectado: CLIENTE");
             System.out.println("\nBienvenido/a, " + cliente.getNombres() + " " + cliente.getApellidos());
             System.out.println("Celular registrado: " + cliente.getCelular());
             System.out.print("¿Este número es correcto? (S/N): ");
@@ -234,6 +236,7 @@ public class Sistema {
 
         // Si es Repartidor
         else if (uInicioSesion instanceof Repartidor rep) {
+            System.out.println("\nRol detectado: REPARTIDOR");
             System.out.println("\nBienvenido repartidor: " + rep.getNombres() + " " + rep.getApellidos());
             System.out.println("Empresa asignada: " + rep.getEmpresa());
             System.out.print("¿Esta empresa es correcta? (S/N): ");
