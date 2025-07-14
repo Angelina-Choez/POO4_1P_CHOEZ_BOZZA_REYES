@@ -242,7 +242,8 @@ public class Sistema {
             System.out.print("¿Esta empresa es correcta? (S/N): ");
             String confirm = sc.nextLine();
             if (!confirm.equalsIgnoreCase("S")) {
-                System.out.println("Verificación fallida. Se cerrará la sesión por seguridad.");
+                System.out.println("Verificación fallida. Por motivos de seguridad se cerrará la sesión.");
+                System.out.println("\\nSaliendo del sistema...");
                 continue; // volver a login
             }
 
