@@ -107,6 +107,7 @@ public class ClienteServicio {
         if (pedido!= null){
             Sistema.agregarPedido(pedido);
             System.out.println("\nPedido agregado exitosamente: "+pedido.getCodigoPedido());
+            repartidor.gestionarPedido();
             Sistema.notificar(cliente, pedido, seleccionado);
             Sistema.notificar(repartidor, pedido, cliente);
         } else{
