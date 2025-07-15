@@ -72,13 +72,13 @@ public class Sistema {
      * Envía notificación al cliente cuando realiza un pedido.
      */
     public static void notificar(Cliente cliente, Pedido pedido, Producto producto) {
-        System.out.println("=====NOTIFICACION A CLIENTE======");
+        System.out.println("\n=====NOTIFICACION A CLIENTE======");
         System.out.println("Para: " + cliente.getCorreo());
         System.out.println("Asunto: Pedido realizado.");
-        System.out.println("El cliente " + cliente.getNombres() + ","+ cliente.getApellidos()+" ha realizado un pedido con código "+ pedido.getCodigoPedido()+" el día "+ pedido.getFecha());
-        System.out.println("Producto: "+ producto.getNombre());
+        System.out.println("\nEl cliente " + cliente.getNombres() + ","+ cliente.getApellidos()+" ha realizado un pedido con código "+ pedido.getCodigoPedido()+" el día "+ pedido.getFecha());
+        System.out.println("\nProducto: "+ producto.getNombre());
         System.out.println("Cantidad: "+ pedido.getCantidad());
-        System.out.printf("Valor: ", pedido.getValorPagado());
+        System.out.printf("Valor: "+ pedido.getValorPagado());
         System.out.println("Estado inicial: " + pedido.getEstado());
         System.out.println("Gracias por su compra. Recibirá actualizaciones del estado de su pedido por este medio.");
 
@@ -97,16 +97,16 @@ public class Sistema {
      */
 
     public static void notificar(Repartidor repartidor, Pedido pedidoAsignado, Cliente cliente) {
-        System.out.println("======NOTIFICACION A REPARTIDOR=======");
+        System.out.println("\n======NOTIFICACION A REPARTIDOR=======");
         System.out.println("Para: " + repartidor.getCorreo());
         System.out.println("Asunto: Nuevo pedido asignado");
-        System.out.println("Estimado " + repartidor.getNombres() + " "+ repartidor.getApellidos()+ ",");
+        System.out.println("\nEstimado " + repartidor.getNombres() + " "+ repartidor.getApellidos()+ ",");
         System.out.println("Se le ha asignado un nuevo pedido con los siguientes detalles: ");
-        System.out.println("Código del pedido: " + pedidoAsignado.getCodigoPedido());
+        System.out.println("\nCódigo del pedido: " + pedidoAsignado.getCodigoPedido());
         System.out.println("Fecha del pedido: : " + pedidoAsignado.getFecha());
         System.out.println("Cliente: "+ cliente.getNombres()+ " "+ cliente.getApellidos());
         System.out.println("Estado actual: "+ pedidoAsignado.getEstado());
-        System.out.println("Por favor, prepare la logística necesaria para la entrega.");
+        System.out.println("\nPor favor, prepare la logística necesaria para la entrega.");
         System.out.println("Gracias por su trabajo.");
 
         String asunto= "Nuevo pedido asignado";
@@ -125,14 +125,14 @@ public class Sistema {
      */
 
     public static void notificar(Cliente cliente, Pedido pedido, EstadoPedido nuevoEstado) {
-        System.out.println("=====NOTIFICACION DE CAMBIO DE ESTADO======");
+        System.out.println("\n=====NOTIFICACION DE CAMBIO DE ESTADO======");
         System.out.println("Para: " + cliente.getCorreo());
         System.out.println("Asunto: Actualización del estado de su pedido");
-        System.out.println("Estimado/a " + cliente.getNombres() + " "+ cliente.getApellidos()+ ",");
+        System.out.println("\nEstimado/a " + cliente.getNombres() + " "+ cliente.getApellidos()+ ",");
         System.out.println("Le informamos que el estado de su pedido con código "+ pedido.getCodigoPedido()+ " ha cambiado a: "+ nuevoEstado);
-        System.out.println("Fecha del pedido: " + LocalDate.now());
+        System.out.println("\nFecha del pedido: " + LocalDate.now());
         System.out.println("Repartidor asignado: "+ pedido.getCodigoRepartidor());
-        System.out.println("Gracias por confiar en nosotros.");
+        System.out.println("\nGracias por confiar en nosotros.");
         
         String asunto= "Actualización del estado de su pedido";
         String cuerpo= "Estimado/a " + cliente.getNombres() + " " + cliente.getApellidos() + ",\n" +
@@ -256,8 +256,8 @@ public class Sistema {
 
         Scanner sc = new Scanner(System.in);
     while (true) {
-        System.out.println("===== INICIO DE SESION =====");
-        System.out.print("Usuario: ");
+        System.out.println("\n===== INICIO DE SESION =====");
+    System.out.print("\nUsuario: ");
         String user = sc.nextLine();
         System.out.print("Contraseña: ");
         String contrasena = sc.nextLine();

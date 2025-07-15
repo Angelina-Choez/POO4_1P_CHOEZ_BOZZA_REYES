@@ -1,6 +1,7 @@
 package com.proyecto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 /**
  * Clase de servicio que gestiona las operaciones relacionadas con el cliente,
@@ -24,7 +25,7 @@ public class ClienteServicio {
      */
     public static Pedido iniciarCompra(Cliente cliente, List<Producto> productos, List<Repartidor> repartidores) {
         Scanner sc= new Scanner(System.in);
-        System.out.println("=====PROCESO DE COMPRA=====");
+        System.out.println("\n=====PROCESO DE COMPRA=====");
         
         System.out.println("Categorías disponibles: ");
         for (Categoria c: Categoria.values()){
@@ -52,12 +53,12 @@ public class ClienteServicio {
             return null;
         }
 
-        System.out.println("Productos disponibles: ");
+        System.out.println("\nProductos disponibles: ");
         for (int i=0; i< disponibles.size(); i++){
             System.out.println((i+1)+ "." + disponibles.get(i));
         }
 
-        System.out.println("Seleccione el número del producto: ");
+        System.out.println("\nSeleccione el número del producto: ");
         int opcionProducto= Integer.parseInt(sc.nextLine());
         if (opcionProducto< 1 || opcionProducto>disponibles.size()){
             System.out.println("Opción válida.");
@@ -75,9 +76,9 @@ public class ClienteServicio {
         }
 
         double total= seleccionado.getPrecio()*cantidad;
-        System.out.printf("Total a pagar: $%.2f\\n", total);
+        System.out.printf("\nTotal a pagar: $%.2f\n", total);
 
-        System.out.println("Formas de pago: ");
+        System.out.println("\nFormas de pago: ");
         for (FormaPago fp: FormaPago.values()){
             System.out.println("- "+fp);
         }
@@ -99,13 +100,13 @@ public class ClienteServicio {
             System.out.println("Pago no verificado. Cancelando compra.");
             return null;
         }
-
-        Repartidor repartidor= repartidores.get(0);
+        Random rand=new Random();
+        Repartidor repartidor= repartidores.get(rand.nextInt(repartidores.size()));
 
         Pedido pedido= cliente.generarPedido(seleccionado, cantidad, pago, repartidor);
         if (pedido!= null){
             Sistema.agregarPedido(pedido);
-            System.out.println("Pedido agregado exitosamente: "+pedido.getCodigoPedido());
+            System.out.println("\nPedido agregado exitosamente: "+pedido.getCodigoPedido());
             Sistema.notificar(cliente, pedido, seleccionado);
             Sistema.notificar(repartidor, pedido, cliente);
         } else{
@@ -126,9 +127,9 @@ public class ClienteServicio {
         if (pedidosCliente.isEmpty()){
             System.out.println("No tiene pedidos registrados");
         }
-        System.out.println("=====SUS PEDIDOS=====");
+        System.out.println("\n=====SUS PEDIDOS=====");
         for (Pedido p: pedidosCliente){
-            System.out.println(p);
+            System.out.println("-"+p);
         }
     }
 }
