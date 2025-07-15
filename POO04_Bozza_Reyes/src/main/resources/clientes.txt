@@ -1,4 +1,4 @@
-CL001;0991234567;Ana;Torres;atorres;torr;ana@mail.com;CLIENTE;0991234567;Calle 1
-CL002;0809988776;David;Cevallos;dcevallos;ceva;david@correo.com;CLIENTE;0955550000;Urdesa Norte
-CL003;0655124727;Shanty;Avila;savila;avil;shanty@correo.com;CLIENTE;0884185575;Alborada
-CL002;0578854597;Ambar;Andrade;aandrade;andr;ambar@correo.com;CLIENTE;0445698986;Av. 9 de Octubre
+CL001;0991234567;Ana;Torres;atorres;torr;sakura3103@gmail.com;CLIENTE;0991234567;Calle 1
+CL002;0809988776;David;Cevallos;dcevallos;ceva;pao43063@gmail.com;CLIENTE;0955550000;Urdesa Norte
+CL003;0655124727;Shanty;Avila;savila;avil;paoreyes3113@gmail.com;CLIENTE;0884185575;Alborada
+CL002;0578854597;Ambar;Andrade;aandrade;andr;isareyes3103@gmail.com;CLIENTE;0445698986;Av. 9 de Octubre

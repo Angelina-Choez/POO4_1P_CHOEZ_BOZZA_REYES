@@ -79,7 +79,7 @@ public class Sistema {
         System.out.println("\nProducto: "+ producto.getNombre());
         System.out.println("Cantidad: "+ pedido.getCantidad());
         System.out.printf("Valor: "+ pedido.getValorPagado());
-        System.out.println("Estado inicial: " + pedido.getEstado());
+        System.out.println("\nEstado inicial: " + pedido.getEstado());
         System.out.println("Gracias por su compra. Recibirá actualizaciones del estado de su pedido por este medio.");
 
         String asunto= "Pedido realizado con éxito";
@@ -90,7 +90,7 @@ public class Sistema {
                 "Valor total: $" + pedido.getValorPagado() + "\n" +
                 "Estado inicial: " + pedido.getEstado() + "\n" +
                 "Gracias por su compra. Recibirá actualizaciones del estado de su pedido por este medio.";
-        EnviarCorreo.enviarCorreo("mdanielabozzav@gmail.com", asunto, cuerpo);
+        EnviarCorreo.enviarCorreo(cliente.getCorreo(), asunto, cuerpo);
         }
     /**
      * Envía notificación al repartidor cuando se le asigna un pedido.
@@ -118,29 +118,29 @@ public class Sistema {
                 "Estado actual: " + pedidoAsignado.getEstado() + "\n" +
                 "Por favor, prepare la logística necesaria para la entrega.\n" +
                 "Gracias por su trabajo.";
-        EnviarCorreo.enviarCorreo("mdanielabozzav@gmail.com", asunto, cuerpo);
+        EnviarCorreo.enviarCorreo(repartidor.getCorreo(), asunto, cuerpo);
         }
     /**
      * Envía notificación al cliente cuando cambia el estado de su pedido.
      */
 
-    public static void notificar(Cliente cliente, Pedido pedido, EstadoPedido nuevoEstado) {
+    public static void notificar(Cliente cliente, Repartidor repartidor,Pedido pedido, EstadoPedido nuevoEstado) {
         System.out.println("\n=====NOTIFICACION DE CAMBIO DE ESTADO======");
         System.out.println("Para: " + cliente.getCorreo());
         System.out.println("Asunto: Actualización del estado de su pedido");
         System.out.println("\nEstimado/a " + cliente.getNombres() + " "+ cliente.getApellidos()+ ",");
         System.out.println("Le informamos que el estado de su pedido con código "+ pedido.getCodigoPedido()+ " ha cambiado a: "+ nuevoEstado);
         System.out.println("\nFecha del pedido: " + LocalDate.now());
-        System.out.println("Repartidor asignado: "+ pedido.getCodigoRepartidor());
+        System.out.println("Repartidor asignado: "+ repartidor.getNombres());
         System.out.println("\nGracias por confiar en nosotros.");
         
         String asunto= "Actualización del estado de su pedido";
         String cuerpo= "Estimado/a " + cliente.getNombres() + " " + cliente.getApellidos() + ",\n" +
                 "Le informamos que el estado de su pedido con código " + pedido.getCodigoPedido() + " ha cambiado a: " + nuevoEstado + ".\n" +
                 "Fecha del pedido: " + LocalDate.now() + "\n" +
-                "Repartidor asignado: " + pedido.getCodigoRepartidor() + "\n" +
+                "Repartidor asignado: " + repartidor.getNombres()+repartidor.getApellidos() + "\n" +
                 "Gracias por confiar en nosotros.";
-        EnviarCorreo.enviarCorreo("mdanielabozzav@gmail.com", asunto, cuerpo);
+        EnviarCorreo.enviarCorreo(cliente.getCorreo(), asunto, cuerpo);
         }
     /**
      * Devuelve la lista actual de productos cargados.
@@ -391,7 +391,7 @@ public class Sistema {
                             System.out.println("Estado actualizado.");
                             Cliente cliente = (Cliente) buscarUsuarioPorCodigo(pedido.getCodigoCliente());
                             if (cliente != null) {
-                                notificar(cliente, pedido, nuevoEstado);
+                                notificar(cliente,rep, pedido,nuevoEstado);
                             }
                         }
                     } catch (Exception e) {

@@ -1,2 +1,2 @@
-RP001;0931909584;Luis;Medina;lmedina;medina;luis@mail.com;REPARTIDOR;Uber
-RP002;0959635623;Mario;Baque;mbaque;baque;mario@mail.com;REPARTIDOR;Glovo
+RP001;0931909584;Luis;Medina;lmedina;medina;b0r6013t4@gmail.com;REPARTIDOR;Uber
+RP002;0959635623;Mario;Baque;mbaque;baque;reyespaola3022@gmail.com;REPARTIDOR;Glovo
