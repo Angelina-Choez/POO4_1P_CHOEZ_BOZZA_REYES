@@ -1,0 +1,12 @@
+Código de Pedido: PED1004, Fecha: 2025-07-14, Código de Producto: P003, Cantidad: 3, Valor Pagado: 54.0, Estado: EN_PREPARACION, Código de Repartidor: RP001, Código de Cliente: CL001, PagoTARJETA
+PED1004;2025-07-14;P003;3;54.0;EN_PREPARACION;RP001;CL001;TARJETA;12345678;54.0
+Código de Pedido: PED1004, Fecha: 2025-07-14, Código de Producto: P003, Cantidad: 2, Valor Pagado: 36.0, Estado: EN_PREPARACION, Código de Repartidor: RP001, Código de Cliente: CL001, PagoTARJETA
+PED1004;2025-07-14;P003;2;36.0;EN_PREPARACION;RP001;CL001;TARJETA;12345678;36.0
+Código de Pedido: PED1004, Fecha: 2025-07-14, Código de Producto: P002, Cantidad: 2, Valor Pagado: 24.0, Estado: EN_PREPARACION, Código de Repartidor: RP001, Código de Cliente: CL001, PagoTARJETA
+PED1004;2025-07-14;P002;2;24.0;EN_PREPARACION;RP001;CL001;TARJETA;12345678;24.0
+Código de Pedido: PED1004, Fecha: 2025-07-14, Código de Producto: P002, Cantidad: 2, Valor Pagado: 24.0, Estado: EN_PREPARACION, Código de Repartidor: RP001, Código de Cliente: CL001, PagoTARJETA
+PED1004;2025-07-14;P002;2;24.0;EN_PREPARACION;RP001;CL001;TARJETA;12345678;24.0
+Código de Pedido: PED1004, Fecha: 2025-07-14, Código de Producto: P002, Cantidad: 2, Valor Pagado: 24.0, Estado: EN_PREPARACION, Código de Repartidor: RP001, Código de Cliente: CL001, PagoTARJETA
+PED1004;2025-07-14;P002;2;24.0;EN_PREPARACION;RP001;CL001;TARJETA;12345678;24.0
+Código de Pedido: PED1004, Fecha: 2025-07-14, Código de Producto: P002, Cantidad: 2, Valor Pagado: 24.0, Estado: EN_PREPARACION, Código de Repartidor: RP001, Código de Cliente: CL001, PagoTARJETA
+PED1004;2025-07-14;P002;2;24.0;EN_PREPARACION;RP001;CL001;TARJETA;12345678;24.0

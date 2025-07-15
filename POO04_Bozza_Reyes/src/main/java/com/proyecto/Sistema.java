@@ -81,6 +81,16 @@ public class Sistema {
         System.out.printf("Valor: ", pedido.getValorPagado());
         System.out.println("Estado inicial: " + pedido.getEstado());
         System.out.println("Gracias por su compra. Recibirá actualizaciones del estado de su pedido por este medio.");
+
+        String asunto= "Pedido realizado con éxito";
+        String cuerpo= "Estimado/a " + cliente.getNombres() + " " + cliente.getApellidos() + ",\n" +
+                "Su pedido con código " + pedido.getCodigoPedido() + " ha sido realizado exitosamente.\n" +
+                "Producto: " + producto.getNombre() + "\n" +
+                "Cantidad: " + pedido.getCantidad() + "\n" +
+                "Valor total: $" + pedido.getValorPagado() + "\n" +
+                "Estado inicial: " + pedido.getEstado() + "\n" +
+                "Gracias por su compra. Recibirá actualizaciones del estado de su pedido por este medio.";
+        EnviarCorreo.enviarCorreo("mdanielabozzav@gmail.com", asunto, cuerpo);
         }
     /**
      * Envía notificación al repartidor cuando se le asigna un pedido.
