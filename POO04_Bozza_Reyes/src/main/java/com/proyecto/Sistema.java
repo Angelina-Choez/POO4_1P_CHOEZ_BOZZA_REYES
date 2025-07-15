@@ -108,6 +108,17 @@ public class Sistema {
         System.out.println("Estado actual: "+ pedidoAsignado.getEstado());
         System.out.println("Por favor, prepare la logística necesaria para la entrega.");
         System.out.println("Gracias por su trabajo.");
+
+        String asunto= "Nuevo pedido asignado";
+        String cuerpo= "Estimado " + repartidor.getNombres() + " " + repartidor.getApellidos() + ",\n" +
+                "Se le ha asignado un nuevo pedido con los siguientes detalles:\n" +
+                "Código del pedido: " + pedidoAsignado.getCodigoPedido() + "\n" +
+                "Fecha del pedido: " + pedidoAsignado.getFecha() + "\n" +
+                "Cliente: " + cliente.getNombres() + " " + cliente.getApellidos() + "\n" +
+                "Estado actual: " + pedidoAsignado.getEstado() + "\n" +
+                "Por favor, prepare la logística necesaria para la entrega.\n" +
+                "Gracias por su trabajo.";
+        EnviarCorreo.enviarCorreo("mdanielabozzav@gmail.com", asunto, cuerpo);
         }
     /**
      * Envía notificación al cliente cuando cambia el estado de su pedido.
@@ -122,6 +133,14 @@ public class Sistema {
         System.out.println("Fecha del pedido: " + LocalDate.now());
         System.out.println("Repartidor asignado: "+ pedido.getCodigoRepartidor());
         System.out.println("Gracias por confiar en nosotros.");
+        
+        String asunto= "Actualización del estado de su pedido";
+        String cuerpo= "Estimado/a " + cliente.getNombres() + " " + cliente.getApellidos() + ",\n" +
+                "Le informamos que el estado de su pedido con código " + pedido.getCodigoPedido() + " ha cambiado a: " + nuevoEstado + ".\n" +
+                "Fecha del pedido: " + LocalDate.now() + "\n" +
+                "Repartidor asignado: " + pedido.getCodigoRepartidor() + "\n" +
+                "Gracias por confiar en nosotros.";
+        EnviarCorreo.enviarCorreo("mdanielabozzav@gmail.com", asunto, cuerpo);
         }
     /**
      * Devuelve la lista actual de productos cargados.
