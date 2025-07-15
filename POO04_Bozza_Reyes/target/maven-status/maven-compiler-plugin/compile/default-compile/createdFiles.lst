@@ -1,0 +1,13 @@
+com\proyecto\Cliente.class
+com\proyecto\Producto.class
+com\proyecto\ManejoArchivos.class
+com\proyecto\ClienteServicio.class
+com\proyecto\Sistema.class
+com\proyecto\Pedido.class
+com\proyecto\Usuario.class
+com\proyecto\Repartidor.class
+com\proyecto\FormaPago.class
+com\proyecto\Pago.class
+com\proyecto\Categoria.class
+com\proyecto\Rol.class
+com\proyecto\EstadoPedido.class

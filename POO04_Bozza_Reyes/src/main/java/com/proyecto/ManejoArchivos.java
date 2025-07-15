@@ -1,9 +1,9 @@
 package com.proyecto;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -30,9 +30,13 @@ public class ManejoArchivos {
      * @return Lista con las líneas del archivo. Si hay error, retorna lista vacía.
      */
     public static List<String> leerArchivo(String nombreArchivo){
+        
         List<String> lineas= new ArrayList<>();
-    try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(nombreArchivo), StandardCharsets.UTF_8))) {
+        System.out.println("Leyendo: " + nombreArchivo);
+    try (InputStream is = ManejoArchivos.class.getClassLoader().getResourceAsStream(nombreArchivo);
+        BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
         String linea;
+        
         while ((linea = br.readLine()) != null) {
             lineas.add(linea);
         }
@@ -41,6 +45,7 @@ public class ManejoArchivos {
     }
     return lineas;
     }
+    
     /**
      * Escribe una línea en un archivo de texto.
      * Si el archivo ya existe, se añade la línea al final (modo append).

@@ -1,0 +1,2 @@
+CL001;0991234567;Ana;Torres;atorres;1234;ana@mail.com;CLIENTE;0991234567;Calle 1
+CL002;0809988776;Luis;Paredes;lparedes;abcd;lu@correo.com;CLIENTE;0955550000;Av. Siempre Viva
